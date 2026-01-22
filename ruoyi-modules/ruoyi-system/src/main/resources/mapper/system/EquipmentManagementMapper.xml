@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.EquipmentManagementMapper">
+    
+    <resultMap type="EquipmentManagement" id="EquipmentManagementResult">
+        <result property="id"    column="id"    />
+        <result property="equipmentCode"    column="equipment_code"    />
+        <result property="equipmentName"    column="equipment_name"    />
+        <result property="equipmentType"    column="equipment_type"    />
+        <result property="model"    column="model"    />
+        <result property="brand"    column="brand"    />
+        <result property="installLocation"    column="install_location"    />
+        <result property="responsiblePerson"    column="responsible_person"    />
+        <result property="status"    column="status"    />
+        <result property="maintenanceType"    column="maintenance_type"    />
+        <result property="cycleType"    column="cycle_type"    />
+        <result property="cycleValue"    column="cycle_value"    />
+        <result property="nextMaintenanceDate"    column="next_maintenance_date"    />
+        <result property="lastMaintenanceDate"    column="last_maintenance_date"    />
+        <result property="lastMaintenancePerson"    column="last_maintenance_person"    />
+        <result property="lastMaintenanceResult"    column="last_maintenance_result"    />
+        <result property="qrCodeUrl"    column="qr_code_url"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectEquipmentManagementVo">
+        select id, equipment_code, equipment_name, equipment_type, model, brand, install_location, responsible_person, status, maintenance_type, cycle_type, cycle_value, next_maintenance_date, last_maintenance_date, last_maintenance_person, last_maintenance_result, qr_code_url, remark, create_time, update_time from equipment_management
+    </sql>
+
+    <select id="selectEquipmentManagementList" parameterType="EquipmentManagement" resultMap="EquipmentManagementResult">
+        <include refid="selectEquipmentManagementVo"/>
+        <where>  
+            <if test="equipmentCode != null  and equipmentCode != ''"> and equipment_code = #{equipmentCode}</if>
+            <if test="equipmentName != null  and equipmentName != ''"> and equipment_name like concat('%', #{equipmentName}, '%')</if>
+            <if test="equipmentType != null "> and equipment_type = #{equipmentType}</if>
+            <if test="model != null  and model != ''"> and model = #{model}</if>
+            <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
+            <if test="installLocation != null  and installLocation != ''"> and install_location = #{installLocation}</if>
+            <if test="responsiblePerson != null  and responsiblePerson != ''"> and responsible_person = #{responsiblePerson}</if>
+            <if test="status != null "> and status = #{status}</if>
+            <if test="maintenanceType != null  and maintenanceType != ''"> and maintenance_type = #{maintenanceType}</if>
+            <if test="cycleType != null "> and cycle_type = #{cycleType}</if>
+            <if test="cycleValue != null "> and cycle_value = #{cycleValue}</if>
+            <if test="nextMaintenanceDate != null "> and next_maintenance_date = #{nextMaintenanceDate}</if>
+            <if test="lastMaintenanceDate != null "> and last_maintenance_date = #{lastMaintenanceDate}</if>
+            <if test="lastMaintenancePerson != null  and lastMaintenancePerson != ''"> and last_maintenance_person = #{lastMaintenancePerson}</if>
+            <if test="lastMaintenanceResult != null  and lastMaintenanceResult != ''"> and last_maintenance_result = #{lastMaintenanceResult}</if>
+            <if test="qrCodeUrl != null  and qrCodeUrl != ''"> and qr_code_url = #{qrCodeUrl}</if>
+        </where>
+    </select>
+    
+    <select id="selectEquipmentManagementById" parameterType="Long" resultMap="EquipmentManagementResult">
+        <include refid="selectEquipmentManagementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertEquipmentManagement" parameterType="EquipmentManagement" useGeneratedKeys="true" keyProperty="id">
+        insert into equipment_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code,</if>
+            <if test="equipmentName != null and equipmentName != ''">equipment_name,</if>
+            <if test="equipmentType != null">equipment_type,</if>
+            <if test="model != null">model,</if>
+            <if test="brand != null">brand,</if>
+            <if test="installLocation != null">install_location,</if>
+            <if test="responsiblePerson != null">responsible_person,</if>
+            <if test="status != null">status,</if>
+            <if test="maintenanceType != null">maintenance_type,</if>
+            <if test="cycleType != null">cycle_type,</if>
+            <if test="cycleValue != null">cycle_value,</if>
+            <if test="nextMaintenanceDate != null">next_maintenance_date,</if>
+            <if test="lastMaintenanceDate != null">last_maintenance_date,</if>
+            <if test="lastMaintenancePerson != null">last_maintenance_person,</if>
+            <if test="lastMaintenanceResult != null">last_maintenance_result,</if>
+            <if test="qrCodeUrl != null">qr_code_url,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="equipmentCode != null and equipmentCode != ''">#{equipmentCode},</if>
+            <if test="equipmentName != null and equipmentName != ''">#{equipmentName},</if>
+            <if test="equipmentType != null">#{equipmentType},</if>
+            <if test="model != null">#{model},</if>
+            <if test="brand != null">#{brand},</if>
+            <if test="installLocation != null">#{installLocation},</if>
+            <if test="responsiblePerson != null">#{responsiblePerson},</if>
+            <if test="status != null">#{status},</if>
+            <if test="maintenanceType != null">#{maintenanceType},</if>
+            <if test="cycleType != null">#{cycleType},</if>
+            <if test="cycleValue != null">#{cycleValue},</if>
+            <if test="nextMaintenanceDate != null">#{nextMaintenanceDate},</if>
+            <if test="lastMaintenanceDate != null">#{lastMaintenanceDate},</if>
+            <if test="lastMaintenancePerson != null">#{lastMaintenancePerson},</if>
+            <if test="lastMaintenanceResult != null">#{lastMaintenanceResult},</if>
+            <if test="qrCodeUrl != null">#{qrCodeUrl},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEquipmentManagement" parameterType="EquipmentManagement">
+        update equipment_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="equipmentCode != null and equipmentCode != ''">equipment_code = #{equipmentCode},</if>
+            <if test="equipmentName != null and equipmentName != ''">equipment_name = #{equipmentName},</if>
+            <if test="equipmentType != null">equipment_type = #{equipmentType},</if>
+            <if test="model != null">model = #{model},</if>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="installLocation != null">install_location = #{installLocation},</if>
+            <if test="responsiblePerson != null">responsible_person = #{responsiblePerson},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="maintenanceType != null">maintenance_type = #{maintenanceType},</if>
+            <if test="cycleType != null">cycle_type = #{cycleType},</if>
+            <if test="cycleValue != null">cycle_value = #{cycleValue},</if>
+            <if test="nextMaintenanceDate != null">next_maintenance_date = #{nextMaintenanceDate},</if>
+            <if test="lastMaintenanceDate != null">last_maintenance_date = #{lastMaintenanceDate},</if>
+            <if test="lastMaintenancePerson != null">last_maintenance_person = #{lastMaintenancePerson},</if>
+            <if test="lastMaintenanceResult != null">last_maintenance_result = #{lastMaintenanceResult},</if>
+            <if test="qrCodeUrl != null">qr_code_url = #{qrCodeUrl},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteEquipmentManagementById" parameterType="Long">
+        delete from equipment_management where id = #{id}
+    </delete>
+
+    <delete id="deleteEquipmentManagementByIds" parameterType="String">
+        delete from equipment_management where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

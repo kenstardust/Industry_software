@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.CodeManagementMapper">
+    
+    <resultMap type="CodeManagement" id="CodeManagementResult">
+        <result property="id"    column="id"    />
+        <result property="uniqueCode"    column="unique_code"    />
+        <result property="codeType"    column="code_type"    />
+        <result property="businessId"    column="business_id"    />
+        <result property="businessName"    column="business_name"    />
+        <result property="qrCodeUrl"    column="qr_code_url"    />
+        <result property="generateTime"    column="generate_time"    />
+        <result property="creator"    column="creator"    />
+        <result property="status"    column="status"    />
+        <result property="remark"    column="remark"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectCodeManagementVo">
+        select id, unique_code, code_type, business_id, business_name, qr_code_url, generate_time, creator, status, remark, create_time, update_time from code_management
+    </sql>
+
+    <select id="selectCodeManagementList" parameterType="CodeManagement" resultMap="CodeManagementResult">
+        <include refid="selectCodeManagementVo"/>
+        <where>  
+            <if test="uniqueCode != null  and uniqueCode != ''"> and unique_code = #{uniqueCode}</if>
+            <if test="codeType != null "> and code_type = #{codeType}</if>
+            <if test="businessId != null "> and business_id = #{businessId}</if>
+            <if test="businessName != null  and businessName != ''"> and business_name like concat('%', #{businessName}, '%')</if>
+            <if test="qrCodeUrl != null  and qrCodeUrl != ''"> and qr_code_url = #{qrCodeUrl}</if>
+            <if test="generateTime != null "> and generate_time = #{generateTime}</if>
+            <if test="creator != null  and creator != ''"> and creator = #{creator}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectCodeManagementById" parameterType="Long" resultMap="CodeManagementResult">
+        <include refid="selectCodeManagementVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertCodeManagement" parameterType="CodeManagement" useGeneratedKeys="true" keyProperty="id">
+        insert into code_management
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uniqueCode != null and uniqueCode != ''">unique_code,</if>
+            <if test="codeType != null">code_type,</if>
+            <if test="businessId != null">business_id,</if>
+            <if test="businessName != null">business_name,</if>
+            <if test="qrCodeUrl != null">qr_code_url,</if>
+            <if test="generateTime != null">generate_time,</if>
+            <if test="creator != null">creator,</if>
+            <if test="status != null">status,</if>
+            <if test="remark != null">remark,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uniqueCode != null and uniqueCode != ''">#{uniqueCode},</if>
+            <if test="codeType != null">#{codeType},</if>
+            <if test="businessId != null">#{businessId},</if>
+            <if test="businessName != null">#{businessName},</if>
+            <if test="qrCodeUrl != null">#{qrCodeUrl},</if>
+            <if test="generateTime != null">#{generateTime},</if>
+            <if test="creator != null">#{creator},</if>
+            <if test="status != null">#{status},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateCodeManagement" parameterType="CodeManagement">
+        update code_management
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="uniqueCode != null and uniqueCode != ''">unique_code = #{uniqueCode},</if>
+            <if test="codeType != null">code_type = #{codeType},</if>
+            <if test="businessId != null">business_id = #{businessId},</if>
+            <if test="businessName != null">business_name = #{businessName},</if>
+            <if test="qrCodeUrl != null">qr_code_url = #{qrCodeUrl},</if>
+            <if test="generateTime != null">generate_time = #{generateTime},</if>
+            <if test="creator != null">creator = #{creator},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteCodeManagementById" parameterType="Long">
+        delete from code_management where id = #{id}
+    </delete>
+
+    <delete id="deleteCodeManagementByIds" parameterType="String">
+        delete from code_management where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
