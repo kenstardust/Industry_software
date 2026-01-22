@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.MaterialManageMapper">
+    
+    <resultMap type="MaterialManage" id="MaterialManageResult">
+        <result property="materialId"    column="material_id"    />
+        <result property="materialName"    column="material_name"    />
+        <result property="materialType"    column="material_type"    />
+        <result property="specModel"    column="spec_model"    />
+        <result property="unit"    column="unit"    />
+        <result property="brand"    column="brand"    />
+        <result property="stockQuantity"    column="stock_quantity"    />
+        <result property="safeStock"    column="safe_stock"    />
+        <result property="maxStock"    column="max_stock"    />
+        <result property="stockLocation"    column="stock_location"    />
+        <result property="batchNo"    column="batch_no"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierPhone"    column="supplier_phone"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="taxRate"    column="tax_rate"    />
+        <result property="totalPurchase"    column="total_purchase"    />
+        <result property="productionDate"    column="production_date"    />
+        <result property="expireDate"    column="expire_date"    />
+        <result property="qualityStatus"    column="quality_status"    />
+        <result property="inspectResult"    column="inspect_result"    />
+        <result property="storageRequire"    column="storage_require"    />
+        <result property="useStatus"    column="use_status"    />
+        <result property="lastInTime"    column="last_in_time"    />
+        <result property="lastOutTime"    column="last_out_time"    />
+        <result property="creator"    column="creator"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectMaterialManageVo">
+        select material_id, material_name, material_type, spec_model, unit, brand, stock_quantity, safe_stock, max_stock, stock_location, batch_no, supplier_name, supplier_phone, purchase_price, tax_rate, total_purchase, production_date, expire_date, quality_status, inspect_result, storage_require, use_status, last_in_time, last_out_time, creator, create_time, update_time, remark from material_manage
+    </sql>
+
+    <select id="selectMaterialManageList" parameterType="MaterialManage" resultMap="MaterialManageResult">
+        <include refid="selectMaterialManageVo"/>
+        <where>  
+            <if test="materialName != null  and materialName != ''"> and material_name like concat('%', #{materialName}, '%')</if>
+            <if test="materialType != null  and materialType != ''"> and material_type = #{materialType}</if>
+            <if test="specModel != null  and specModel != ''"> and spec_model = #{specModel}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="brand != null  and brand != ''"> and brand = #{brand}</if>
+            <if test="stockQuantity != null "> and stock_quantity = #{stockQuantity}</if>
+            <if test="safeStock != null "> and safe_stock = #{safeStock}</if>
+            <if test="maxStock != null "> and max_stock = #{maxStock}</if>
+            <if test="stockLocation != null  and stockLocation != ''"> and stock_location = #{stockLocation}</if>
+            <if test="batchNo != null  and batchNo != ''"> and batch_no = #{batchNo}</if>
+            <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="supplierPhone != null  and supplierPhone != ''"> and supplier_phone = #{supplierPhone}</if>
+            <if test="purchasePrice != null "> and purchase_price = #{purchasePrice}</if>
+            <if test="taxRate != null "> and tax_rate = #{taxRate}</if>
+            <if test="totalPurchase != null "> and total_purchase = #{totalPurchase}</if>
+            <if test="productionDate != null "> and production_date = #{productionDate}</if>
+            <if test="expireDate != null "> and expire_date = #{expireDate}</if>
+            <if test="qualityStatus != null  and qualityStatus != ''"> and quality_status = #{qualityStatus}</if>
+            <if test="inspectResult != null  and inspectResult != ''"> and inspect_result = #{inspectResult}</if>
+            <if test="storageRequire != null  and storageRequire != ''"> and storage_require = #{storageRequire}</if>
+            <if test="useStatus != null  and useStatus != ''"> and use_status = #{useStatus}</if>
+            <if test="lastInTime != null "> and last_in_time = #{lastInTime}</if>
+            <if test="lastOutTime != null "> and last_out_time = #{lastOutTime}</if>
+            <if test="creator != null  and creator != ''"> and creator = #{creator}</if>
+        </where>
+    </select>
+    
+    <select id="selectMaterialManageByMaterialId" parameterType="Long" resultMap="MaterialManageResult">
+        <include refid="selectMaterialManageVo"/>
+        where material_id = #{materialId}
+    </select>
+
+    <insert id="insertMaterialManage" parameterType="MaterialManage">
+        insert into material_manage
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">material_id,</if>
+            <if test="materialName != null and materialName != ''">material_name,</if>
+            <if test="materialType != null and materialType != ''">material_type,</if>
+            <if test="specModel != null and specModel != ''">spec_model,</if>
+            <if test="unit != null and unit != ''">unit,</if>
+            <if test="brand != null">brand,</if>
+            <if test="stockQuantity != null">stock_quantity,</if>
+            <if test="safeStock != null">safe_stock,</if>
+            <if test="maxStock != null">max_stock,</if>
+            <if test="stockLocation != null and stockLocation != ''">stock_location,</if>
+            <if test="batchNo != null and batchNo != ''">batch_no,</if>
+            <if test="supplierName != null and supplierName != ''">supplier_name,</if>
+            <if test="supplierPhone != null and supplierPhone != ''">supplier_phone,</if>
+            <if test="purchasePrice != null">purchase_price,</if>
+            <if test="taxRate != null">tax_rate,</if>
+            <if test="totalPurchase != null">total_purchase,</if>
+            <if test="productionDate != null">production_date,</if>
+            <if test="expireDate != null">expire_date,</if>
+            <if test="qualityStatus != null and qualityStatus != ''">quality_status,</if>
+            <if test="inspectResult != null">inspect_result,</if>
+            <if test="storageRequire != null">storage_require,</if>
+            <if test="useStatus != null and useStatus != ''">use_status,</if>
+            <if test="lastInTime != null">last_in_time,</if>
+            <if test="lastOutTime != null">last_out_time,</if>
+            <if test="creator != null and creator != ''">creator,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="materialId != null">#{materialId},</if>
+            <if test="materialName != null and materialName != ''">#{materialName},</if>
+            <if test="materialType != null and materialType != ''">#{materialType},</if>
+            <if test="specModel != null and specModel != ''">#{specModel},</if>
+            <if test="unit != null and unit != ''">#{unit},</if>
+            <if test="brand != null">#{brand},</if>
+            <if test="stockQuantity != null">#{stockQuantity},</if>
+            <if test="safeStock != null">#{safeStock},</if>
+            <if test="maxStock != null">#{maxStock},</if>
+            <if test="stockLocation != null and stockLocation != ''">#{stockLocation},</if>
+            <if test="batchNo != null and batchNo != ''">#{batchNo},</if>
+            <if test="supplierName != null and supplierName != ''">#{supplierName},</if>
+            <if test="supplierPhone != null and supplierPhone != ''">#{supplierPhone},</if>
+            <if test="purchasePrice != null">#{purchasePrice},</if>
+            <if test="taxRate != null">#{taxRate},</if>
+            <if test="totalPurchase != null">#{totalPurchase},</if>
+            <if test="productionDate != null">#{productionDate},</if>
+            <if test="expireDate != null">#{expireDate},</if>
+            <if test="qualityStatus != null and qualityStatus != ''">#{qualityStatus},</if>
+            <if test="inspectResult != null">#{inspectResult},</if>
+            <if test="storageRequire != null">#{storageRequire},</if>
+            <if test="useStatus != null and useStatus != ''">#{useStatus},</if>
+            <if test="lastInTime != null">#{lastInTime},</if>
+            <if test="lastOutTime != null">#{lastOutTime},</if>
+            <if test="creator != null and creator != ''">#{creator},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMaterialManage" parameterType="MaterialManage">
+        update material_manage
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="materialName != null and materialName != ''">material_name = #{materialName},</if>
+            <if test="materialType != null and materialType != ''">material_type = #{materialType},</if>
+            <if test="specModel != null and specModel != ''">spec_model = #{specModel},</if>
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="brand != null">brand = #{brand},</if>
+            <if test="stockQuantity != null">stock_quantity = #{stockQuantity},</if>
+            <if test="safeStock != null">safe_stock = #{safeStock},</if>
+            <if test="maxStock != null">max_stock = #{maxStock},</if>
+            <if test="stockLocation != null and stockLocation != ''">stock_location = #{stockLocation},</if>
+            <if test="batchNo != null and batchNo != ''">batch_no = #{batchNo},</if>
+            <if test="supplierName != null and supplierName != ''">supplier_name = #{supplierName},</if>
+            <if test="supplierPhone != null and supplierPhone != ''">supplier_phone = #{supplierPhone},</if>
+            <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>
+            <if test="taxRate != null">tax_rate = #{taxRate},</if>
+            <if test="totalPurchase != null">total_purchase = #{totalPurchase},</if>
+            <if test="productionDate != null">production_date = #{productionDate},</if>
+            <if test="expireDate != null">expire_date = #{expireDate},</if>
+            <if test="qualityStatus != null and qualityStatus != ''">quality_status = #{qualityStatus},</if>
+            <if test="inspectResult != null">inspect_result = #{inspectResult},</if>
+            <if test="storageRequire != null">storage_require = #{storageRequire},</if>
+            <if test="useStatus != null and useStatus != ''">use_status = #{useStatus},</if>
+            <if test="lastInTime != null">last_in_time = #{lastInTime},</if>
+            <if test="lastOutTime != null">last_out_time = #{lastOutTime},</if>
+            <if test="creator != null and creator != ''">creator = #{creator},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where material_id = #{materialId}
+    </update>
+
+    <delete id="deleteMaterialManageByMaterialId" parameterType="Long">
+        delete from material_manage where material_id = #{materialId}
+    </delete>
+
+    <delete id="deleteMaterialManageByMaterialIds" parameterType="String">
+        delete from material_manage where material_id in 
+        <foreach item="materialId" collection="array" open="(" separator="," close=")">
+            #{materialId}
+        </foreach>
+    </delete>
+</mapper>
